@@ -1,0 +1,173 @@
+.todo{
+    position: absolute; left: 0;
+    width: 100%;
+    height: 200px;
+    background: var(--Gray-700, #0D0D0D);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 50px;
+    z-index: -1;
+}
+
+.todo :last-child{
+    color: #5E60CE;
+}
+.todo :nth-child(2){
+    color:#4EA8DE;
+}
+
+.father{
+    margin-top: 170px;
+}
+
+@media screen and (max-width: 400px) {
+    .father {
+        margin-top: 175px;
+    }
+
+}
+
+
+.father .addTAsk{
+    display: flex;
+    width: 750px;
+}
+@media screen and (max-width: 400px) {
+    .father .addTAsk{
+        display: flex;
+        width: 380px;
+    }
+
+}
+
+.father .addTAsk .enterTask{
+    width: 100%;
+    height: 54px;
+    padding: 16px;
+    color: aliceblue;
+    font-size: 15px;
+    align-items: center;
+    gap: 8px;
+    flex: 1 0 0;
+    border-radius: 8px;
+    background: var(--Gray-500, #262626);
+    margin-right: 10px;
+    outline: none;
+    transition: all .2s;
+
+}
+
+@media screen and (max-width: 400px) {
+    .father .addTAsk .enterTask{
+        padding: 10px;
+        height:40px ;
+        font-size: 14px;
+        }
+}
+
+
+.father .addTAsk .enterTask:focus{
+    border: 1px solid #1E6F9F ;
+}
+
+
+
+.father .addTAsk button{
+    width: 130px;
+    padding: 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 8px;
+    background: linear-gradient(#33a0e4, #5E60CE);
+    color: white;
+    font-size: 15px;
+    border: 0;
+    cursor: pointer;
+    transition: all .2s;
+
+}
+
+@media screen and (max-width: 400px) {
+    .father .addTAsk button{
+        width: 90px;
+        padding: 10px;
+        }
+}
+
+
+.father .addTAsk button:hover{
+    box-shadow: 0 0 6px 0 #33a0e49a ;
+}
+.father .allTask{
+    margin-top: 53px;
+}
+
+.newTask{
+    width: 750px;
+    display: flex;
+    padding: 16px;
+    color: aliceblue;
+    font-size: 16px;
+    align-items: center;
+    justify-content: space-between;
+    align-self: stretch;
+    border-radius: 8px;
+    border: 1px solid var(--Gray-400, #333);
+    background: var(--Gray-500, #262626);
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.06);
+    margin:12px 0 12px 0;
+    transition: all .2s;
+}
+
+@media screen and (max-width: 400px) {
+
+    .newTask{
+        width: 380px;
+        font-size: 14px;
+    }
+
+}
+
+.newTask p{
+    width: 90%;
+    overflow: hidden;
+}
+
+.newTask ion-icon{
+    cursor: pointer;
+    transition: all .1s;
+
+}
+
+.newTask :first-child{
+    color: #4EA8DE;
+}
+
+.newTask :last-child:hover{
+    color: rgba(255, 0, 0, 0.525);
+    /* position: absolute; */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
