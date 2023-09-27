@@ -1,30 +1,51 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './Todo.module.css'
 import rocket from "./rocket.svg";
 
 const Todo = () => {
 
-    let [inputValue, setInputValue] = useState('') 
-    let [tasks, setTasks] = useState([])
+    const [newTodo, setNewTodo] = useState('');
+        // Initialize the todos state with data from Local Storage or an empty array
+        const [todos, setTodos] = useState(() => {
+          const savedTodos = JSON.parse(localStorage.getItem('todos')) || [];
+          return savedTodos;
+        });
 
-    let getVAlueInput = e => setInputValue(e.target.value)  /* Returns the value of the input element */
+        const [completedTodos, setCompletedTodos] = useState(() => {
+            const savedCompletedTodos = JSON.parse(localStorage.getItem('completedTodos')) || [];
+            return savedCompletedTodos;
+          });
 
-// Adds inputVAlue to the task set
-    let appendTheTAsk = () => {
-        if(inputValue.trim() !== ''){
-            setTasks([...tasks, inputValue])
-            setInputValue('')
-        }
-    }
+          const completeTodo = (index) => {
+            const updatedTodos = [...todos];
+            updatedTodos[index].completed = true;
+            setTodos(updatedTodos);
+            const completedTodo = updatedTodos.splice(index, 1)[0];
+            setCompletedTodos([...completedTodos, completedTodo]);
+            localStorage.setItem('todos', JSON.stringify(updatedTodos));
+            localStorage.setItem('completedTodos', JSON.stringify(completedTodos));
+          };
+        
 
-    // Create a new item using the inputValue
-    let todo = tasks.map((el, index) => (
-                <div className={style.newTask} key={index}>
-                    <ion-icon name="ellipse-outline" onClick={finishedTask}></ion-icon>
-                    <p key={index}>{el}</p>
-                    <ion-icon name="trash-outline" onClick={removeTask}></ion-icon>
-                </div>
-    ))
+    const addTodo = () => {
+    if (newTodo.trim() === '') return;
+    setTodos([...todos, newTodo]);
+    setNewTodo('');
+  };
+
+  const deleteTodo = (index) => {
+    const updatedTodos = todos.filter((_, i) => i !== index);
+    setTodos(updatedTodos);
+    localStorage.setItem('todos', JSON.stringify(updatedTodos));
+  };
+
+
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
+
+
+    let getVAlueInput = e => setNewTodo(e.target.value)  /* Returns the value of the input element */
 
     // You perform the task style when you work and finish
     function finishedTask(e) {
@@ -47,12 +68,7 @@ const Todo = () => {
         }
     }
 
-    // Delete the task
-    function removeTask(e) {
-        let element =  e.target.parentElement
-        element.remove()
-    }
-
+   
     return (
         <>
         <div className={style.todo}>
@@ -62,11 +78,17 @@ const Todo = () => {
         </div>
         <div className={style.father} >
             <div className={style.addTAsk}>
-                <input className={style.enterTask} type='text' value={inputValue} placeholder='Enter a new task' onChange={getVAlueInput}/>
-                <button type='submit' onClick={ appendTheTAsk}>Create</button>
+                <input className={style.enterTask} type='text' value={newTodo} placeholder='Enter a new task' onChange={getVAlueInput}/>
+                <button className={style.create} type='submit' onClick={addTodo} >Create</button>
             </div>
 
-            <div className={style.allTask}>{todo}</div>
+            <div className={style.allTask}>{todos.map((el, index) => (
+                <div className={style.newTask}>
+                    <ion-icon name="ellipse-outline" onClick={completeTodo(index)}></ion-icon>
+                    <p key={index}>{el}</p>
+                    <ion-icon name="trash-outline" onClick={()=> deleteTodo(index)}></ion-icon>
+                </div>
+    ))}</div>
 
         </div>
 
